@@ -122,3 +122,8 @@ The frontend should now be running on `http://localhost:3000`.
 
 4. **Chronological Sort:**
    - Events will be listed in chronological order based on date, regardless of when they were created.
+
+### Website Screenshots
+
+![Coach View](screenshots/coachview.png)
+![Student View](screenshots/studentview.png)
