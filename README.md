@@ -20,60 +20,94 @@ Ensure you have the following installed on your system:
 - npm (Node Package Manager)
 - pip (Python Package Installer)
 
+### Prerequisites
+
+- Node.js and npm
+- Python 3.x
+- PostgreSQL
+- Homebrew (for MacOS users)
+
 ### Backend Setup
 
-1. **Clone the repository:**
-    ```bash
-    git clone <repository-url>
-    cd Stepful/backend
+1. **Clone the repository**:
+    ```sh
+    git clone https://github.com/vincentkhdo/stepful-scheduling.git
+    cd stepful-scheduling
     ```
 
-2. **Create and activate a virtual environment:**
-    ```bash
+2. **Set up a virtual environment and activate it**:
+    ```sh
     python -m venv venv
-    source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+    source venv/bin/activate
     ```
 
-3. **Install dependencies:**
-    ```bash
+3. **Install backend dependencies**:
+    ```sh
     pip install -r requirements.txt
     ```
 
-4. **Setup the database:**
-    - Ensure PostgreSQL is running.
-    - Create a new database named `stepful`.
-    - Update the database URL in `backend/config.py`.
+4. **Start PostgreSQL service**:
+    ```sh
+    brew services start postgresql@14
+    ```
+    If PostgreSQL is already running, stop it first and then start:
+    ```sh
+    brew services stop postgresql@14
+    brew services start postgresql@14
+    ```
 
-5. **Initialize and upgrade the database:**
-    ```bash
-    flask db init
-    flask db migrate -m "Initial migration"
+5. **Run database migrations**:
+    ```sh
     flask db upgrade
     ```
 
-6. **Run the Flask server:**
-    ```bash
-    flask run
+6. **Start the backend server**:
+    ```sh
+    python run.py
     ```
+    The backend should now be running at `http://127.0.0.1:5001/` and should display "Welcome to Stepful!".
 
 ### Frontend Setup
 
-1. **Navigate to the frontend directory:**
-    ```bash
-    cd ../frontend
+1. **Navigate to the frontend directory**:
+    ```sh
+    cd frontend
     ```
 
-2. **Install dependencies:**
-    ```bash
+2. **Install frontend dependencies**:
+    ```sh
     npm install
     ```
 
-3. **Start the React development server:**
-    ```bash
+3. **Start the frontend server**:
+    ```sh
     npm start
     ```
 
-The frontend should now be running on `http://localhost:3000`.
+## Usage
+
+- Navigate to `http://localhost:3000` to access the application.
+- Switch between coach and student views using the provided buttons.
+- Coaches can add availability slots and record feedback.
+- Students can book slots and view their bookings.
+
+## Project Structure
+
+### Backend
+
+- `app.py`: Initializes the Flask app and sets up configurations.
+- `models.py`: Defines database models for Slot and Student.
+- `routes.py`: Contains API routes for managing slots and students.
+- `migrations/`: Contains database migration files.
+
+### Frontend
+
+- `src/components/`: Contains React components for the application.
+  - `AddSlotForm.tsx`: Form for coaches to add availability slots.
+  - `SlotCalendar.tsx`: Displays a calendar of slots for coaches.
+  - `StudentView.tsx`: Displays available slots and bookings for students.
+  - `RecordFeedback.tsx`: Form for coaches to record feedback after a call.
+- `src/App.tsx`: Main application component.
 
 ## Site Functions and Features
 
