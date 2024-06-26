@@ -1,7 +1,7 @@
 # backend/routes.py
 
 from flask import Blueprint, jsonify, request
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from dateutil import parser
 from .app import db
 from .models import Slot, Student
@@ -12,7 +12,7 @@ routes = Blueprint('routes', __name__)
 def add_slot():
     data = request.json
     start_time_str = data.get('startTime')
-    start_time = parser.isoparse(start_time_str)
+    start_time = parser.isoparse(start_time_str).astimezone(timezone.utc)
     end_time = start_time + timedelta(hours=2)
 
     # Check for conflicts
@@ -28,8 +28,8 @@ def add_slot():
     db.session.commit()
     return jsonify({
         'id': new_slot.id,
-        'startTime': new_slot.start_time,
-        'endTime': new_slot.end_time
+        'startTime': new_slot.start_time.isoformat(),
+        'endTime': new_slot.end_time.isoformat(),
     }), 201
 
 @routes.route('/api/slots', methods=['GET'])
